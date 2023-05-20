@@ -11,7 +11,7 @@ export class Users extends Model {
     primaryKey: true,
     type: DataType.INTEGER,
   })
-  todoId!: string;
+  userId!: string;
 
   @Column({
     allowNull: false,
