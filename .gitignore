@@ -133,4 +133,6 @@ dist
 config/
 config.json/
 config.js
+src/db/
+dist/db/
 db/
