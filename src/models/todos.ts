@@ -1,4 +1,12 @@
-import { Table, Model, Column, DataType } from "sequelize-typescript";
+import {
+  Table,
+  Model,
+  Column,
+  DataType,
+  ForeignKey,
+  BelongsTo,
+} from "sequelize-typescript";
+import Users from "./users";
 
 @Table({
   timestamps: false,
@@ -6,14 +14,60 @@ import { Table, Model, Column, DataType } from "sequelize-typescript";
 })
 export class Todos extends Model {
   @Column({
-    type: DataType.STRING,
     allowNull: false,
+    autoIncrement: true,
+    primaryKey: true,
+    type: DataType.INTEGER,
   })
-  name!: string;
+  todoId!: number;
+
+  @ForeignKey(() => Users)
+  @Column({
+    allowNull: false,
+    type: DataType.INTEGER,
+  })
+  userId!: number;
 
   @Column({
-    type: DataType.STRING,
     allowNull: false,
+    type: DataType.STRING,
   })
-  description!: string;
+  title!: string;
+
+  @Column({
+    allowNull: false,
+    type: DataType.STRING,
+  })
+  content!: string;
+
+  @Column({
+    allowNull: false,
+    type: DataType.DATE,
+    defaultValue: DataType.NOW,
+  })
+  createdAt!: Date;
+
+  @Column({
+    allowNull: false,
+    type: DataType.DATE,
+    defaultValue: DataType.NOW,
+  })
+  updatedAt!: Date;
+
+  @Column({
+    allowNull: true,
+    type: DataType.DATE,
+  })
+  doneAt!: Date;
+
+  @Column({
+    allowNull: false,
+    type: DataType.BOOLEAN,
+  })
+  done!: Boolean;
+
+  @BelongsTo(() => Users)
+  users!: Users;
 }
+
+export default Todos;

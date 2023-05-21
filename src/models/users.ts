@@ -1,4 +1,5 @@
-import { Table, Model, Column, DataType } from "sequelize-typescript";
+import { Table, Model, Column, DataType, HasMany } from "sequelize-typescript";
+import Todos from "./todos";
 
 @Table({
   timestamps: false,
@@ -11,7 +12,7 @@ export class Users extends Model {
     primaryKey: true,
     type: DataType.INTEGER,
   })
-  userId!: string;
+  userId!: number;
 
   @Column({
     allowNull: false,
@@ -45,4 +46,9 @@ export class Users extends Model {
     defaultValue: DataType.NOW,
   })
   createdAt!: string;
+
+  @HasMany(() => Todos)
+  todos!: Todos[];
 }
+
+export default Users;
